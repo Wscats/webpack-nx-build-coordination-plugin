@@ -1,6 +1,6 @@
 {
   "name": "webpack-nx-build-coordination-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Use to coordinate the compiling of the libs and the webpack linking.",
   "main": "dist/src/index.js",
   "engines": {
@@ -17,9 +17,11 @@
   "keywords": [
     "webpack",
     "plugin",
-    "generate",
-    "assets",
-    "hashes"
+    "run-command",
+    "build",
+    "nx",
+    "nrwl",
+    "monorepo"
   ],
   "license": "MIT",
   "bugs": {
