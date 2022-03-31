@@ -1,4 +1,4 @@
-import watch from 'node-watch';
+import { watch } from 'chokidar';
 import { execSync } from 'child_process';
 
 export class WebpackNxBuildCoordinationPlugin {
@@ -28,8 +28,13 @@ export class WebpackNxBuildCoordinationPlugin {
   }
 
   startWatchingBuildableLibs() {
-    watch(this.projectsFolderToWatch, { recursive: true }, async () => {
-      await this.buildChangedProjects();
+    const watcher = watch(this.projectsFolderToWatch, {
+      cwd: process.cwd(),
+      ignoreInitial: true,
+    });
+
+    watcher.on('all', (_event: string, path: string) => {
+      this.buildChangedProjects();
     });
   }
 
