@@ -19,6 +19,9 @@ Open next.config.js and comment out the following line:
 
 ```js
 plugins: [...config.plugins, new WebpackNxBuildCoordinationPlugin("tsc -b apps/nextapp/tsconfig.json", "libs")],
+# OR
+# options see: https://www.npmjs.com/package/chokidar
+plugins: [...config.plugins, new WebpackNxBuildCoordinationPlugin("tsc -b apps/nextapp/tsconfig.json", "libs", [options])],
 ```
 
 Run `nx buildlibs nextapp` in one terminal and `nx serve nextapp` in another one. `nx buildlibs nextapp` will run tsc with watch, so it's super fast. In a real setup, WebpackNxBuildCoordinationPlugin should run the watch command, look at output, and do the synchronization, same was WebpackNxBuildCoordinationPlugin does it right now. It's not super hard, but it requires a bit more work.
