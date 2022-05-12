@@ -1,4 +1,4 @@
-import { watch } from 'chokidar';
+import { watch, WatchOptions } from 'chokidar';
 import { execSync } from 'child_process';
 
 export class WebpackNxBuildCoordinationPlugin {
@@ -6,7 +6,8 @@ export class WebpackNxBuildCoordinationPlugin {
 
   constructor(
     private readonly buildCmd: string | (() => string),
-    private readonly projectsFolderToWatch: string
+    private readonly projectsFolderToWatch: string,
+    private readonly options?: WatchOptions
   ) {
     this.buildChangedProjects();
     this.startWatchingBuildableLibs();
@@ -31,6 +32,7 @@ export class WebpackNxBuildCoordinationPlugin {
     const watcher = watch(this.projectsFolderToWatch, {
       cwd: process.cwd(),
       ignoreInitial: true,
+      ...this.options,
     });
 
     watcher.on('all', (_event: string, path: string) => {
